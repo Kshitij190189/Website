@@ -64,6 +64,13 @@ a { text-decoration: none; color: inherit; }
 .animate-fade-in { animation: fadeIn 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; opacity: 0; }
 @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(15px); } }
 
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50%       { transform: translateY(-18px) rotate(1deg); }
+}
+.float-anim { animation: float 5s ease-in-out infinite; }
+
 /* Parallax Utilities */
 .parallax-bg {
   background-attachment: fixed;
@@ -114,18 +121,192 @@ a { text-decoration: none; color: inherit; }
 .nav-phone:hover { color: var(--secondary-color); }
 .mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; color: var(--primary-color); }
 
-/* --- Hero --- */
-.hero { padding: 180px 0 100px; min-height: 90vh; display: flex; align-items: center; position: relative; overflow: hidden; background-color: var(--bg-light); text-align: center; }
-.hero-container { display: flex; flex-direction: column; align-items: center; }
-.hero-content { max-width: 800px; margin: 0 auto; }
-.hero-content h1 { font-size: 64px; color: var(--primary-color); margin-bottom: 20px; line-height: 1.05; letter-spacing: -0.05em; font-weight: 700; }
-.hero-subtitle { font-size: 24px; color: var(--text-light); margin-bottom: 40px; font-weight: 400; line-height: 1.4; max-width: 600px; margin-left: auto; margin-right: auto; }
-.hero-actions { display: flex; gap: 15px; margin-bottom: 60px; justify-content: center; }
-.trust-strip { display: flex; gap: 15px; justify-content: center; font-size: 12px; color: var(--text-light); font-weight: 500; margin-bottom: 20px; }
-.hero-image { position: relative; margin-top: 40px; width: 100%; max-width: 1000px; margin: 40px auto 0; }
-.image-wrapper { position: relative; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-lg); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
-.image-wrapper:hover { transform: scale(1.01); }
-.floating-badge { display: none; } /* Hide clutter */
+/* --- Hero V2 (Light Theme + Three.js) --- */
+
+.hero-v2 {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 50%, #dbeeff 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 90px;
+}
+
+/* Three.js canvas — sits behind everything */
+.hero-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Two-column layout */
+.hero-v2-container {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  padding: 80px 20px 40px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Left text column */
+.hero-v2-content { display: flex; flex-direction: column; align-items: flex-start; }
+
+.hero-v2-content h1 {
+  font-size: 62px;
+  color: var(--primary-color);
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero-accent { color: var(--secondary-color); }
+
+.hero-subtitle {
+  font-size: 18px;
+  color: var(--text-light);
+  margin-bottom: 36px;
+  font-weight: 400;
+  line-height: 1.55;
+  max-width: 480px;
+}
+
+.hero-actions { display: flex; gap: 15px; margin-bottom: 44px; align-items: center; }
+
+.hero-cta {
+  box-shadow: 0 4px 20px rgba(0, 102, 204, 0.35);
+  transition: transform 0.25s cubic-bezier(0.25,1,0.5,1), box-shadow 0.25s !important;
+}
+.hero-cta:hover {
+  transform: translateY(-3px) scale(1.03) !important;
+  box-shadow: 0 8px 30px rgba(0, 102, 204, 0.5) !important;
+}
+
+/* Trust strip */
+.trust-strip {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.trust-strip .dot { opacity: 0.4; }
+
+/* Stats row */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.hero-stat { display: flex; flex-direction: column; gap: 2px; }
+.stat-num {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--secondary-color);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.stat-label { font-size: 12px; color: var(--text-light); font-weight: 400; }
+.hero-stat-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--border-color);
+}
+
+/* Right visual column — tooth is in Three.js, badges overlay it */
+.hero-v2-visual {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Badge overlay area — fills the right column so badges position correctly */
+.badge-overlay-area {
+  position: relative;
+  width: 100%;
+  height: 420px;
+}
+
+
+
+/* Glassmorphism floating badges */
+.glass-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 102, 204, 0.18);
+  box-shadow: 0 4px 20px rgba(0, 102, 204, 0.1), 0 1px 4px rgba(0,0,0,0.06);
+  color: var(--primary-color);
+  border-radius: 14px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  animation: float 4s ease-in-out infinite;
+  z-index: 2;
+}
+.badge-icon { font-size: 15px; }
+.badge-top-right    { top: 6%;    right: -6%;  animation-delay: 0s;   }
+.badge-mid-left     { top: 44%;   left: -14%;  animation-delay: 1.6s; }
+.badge-bottom-right { bottom: 8%; right: -2%;  animation-delay: 0.9s; }
+
+/* Feature pills strip */
+.hero-features-strip {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 24px 20px;
+  border-top: 1px solid rgba(0, 102, 204, 0.1);
+  width: 100%;
+  margin-top: auto;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+}
+.feature-pill {
+  background: white;
+  border: 1px solid rgba(0, 102, 204, 0.15);
+  color: var(--text-main);
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.07);
+  cursor: pointer;
+  transition: transform 0.22s cubic-bezier(0.25,1,0.5,1), box-shadow 0.22s;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: inherit;
+}
+.feature-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 102, 204, 0.18);
+  border-color: rgba(0, 102, 204, 0.35);
+}
 
 /* --- About Doctor --- */
 .about-container { display: grid; grid-template-columns: 2fr 3fr; gap: 60px; align-items: center; }
@@ -220,8 +401,23 @@ a { text-decoration: none; color: inherit; }
   .hero { padding: 120px 0 60px; text-align: center; }
   .hero-actions { justify-content: center; }
   .trust-strip { justify-content: center; }
-  .floating-badge { display: none; } /* Hide floating badges on mobile for cleaner look */
+  .floating-badge { display: none; }
   .about-image { max-width: 400px; margin: 0 auto; }
+
+  /* Hero V2 mobile */
+  .hero-v2-container {
+    grid-template-columns: 1fr;
+    padding: 60px 20px 30px;
+    text-align: center;
+  }
+  .hero-v2-content { align-items: center; }
+  .hero-subtitle { margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; flex-wrap: wrap; }
+  .hero-stats { justify-content: center; }
+  .hero-v2-visual { margin: 0 auto; max-width: 400px; width: 100%; }
+  .tooth-img { max-width: 380px; }
+  .badge-mid-left { left: -5%; }
+  .badge-top-right { right: -2%; }
 }
 @media (max-width: 768px) {
   .nav-links, .nav-actions { display: none; }
