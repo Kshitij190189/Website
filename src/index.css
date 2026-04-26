@@ -321,23 +321,207 @@ a { text-decoration: none; color: inherit; }
 .about-highlights li { font-weight: 500; background: var(--bg-white); padding: 12px 16px; border-radius: 8px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); }
 
 /* --- Services --- */
-.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-.treatment-card { background: var(--bg-light); padding: 35px 30px; border-radius: 24px; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s; position: relative; overflow: hidden; }
-.treatment-card:hover { transform: scale(1.02); box-shadow: var(--shadow-md); background: white; }
-.treatment-card .icon-wrapper { font-size: 32px; margin-bottom: 20px; color: var(--primary-color); }
-.treatment-card h3 { margin-bottom: 10px; color: var(--primary-color); font-size: 20px; font-weight: 600; }
-.treatment-card p { color: var(--text-light); margin-bottom: 25px; font-weight: 400; font-size: 15px; }
-.card-link { background: none; border: none; color: var(--secondary-color); font-weight: 500; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; padding: 0; font-size: 15px; transition: gap 0.2s; }
-.card-link:hover { gap: 8px; text-decoration: underline; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
 
-/* --- Gallery --- */
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-.gallery-item { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 4/3; }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
-.gallery-item:hover img { transform: scale(1.04); }
-.gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 30px 20px; display: flex; align-items: flex-end; opacity: 0; transition: opacity 0.4s ease; }
-.gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-overlay h4 { font-size: 18px; color: white; font-weight: 600; }
+/* Card wrapper */
+.treatment-card {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top image zone */
+.card-image-section {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  flex-shrink: 0;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  display: block;
+}
+
+/* Small circular icon badge overlaid at bottom-left of image */
+.card-icon-badge {
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+}
+
+/* Bottom white content zone */
+.card-content {
+  padding: 36px 24px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.treatment-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+
+.treatment-card p {
+  font-size: 14px;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex: 1;
+  font-weight: 400;
+}
+
+.card-link {
+  background: none;
+  border: none;
+  color: var(--secondary-color);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  transition: gap 0.2s;
+  font-family: inherit;
+}
+
+.card-link:hover { gap: 8px; }
+
+
+/* --- Smile Gallery (2x2 Grid) --- */
+.smile-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.smile-gallery-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+  background: #000;
+}
+
+/* Image — scales up on hover */
+.smile-gallery-img-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.smile-gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1), filter 0.65s ease;
+  filter: brightness(0.92);
+}
+.smile-gallery-card:hover .smile-gallery-img {
+  transform: scale(1.07);
+  filter: brightness(0.55);
+}
+
+/* Overlay — slides up on hover */
+.smile-gallery-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+  transition: background 0.4s ease;
+}
+
+/* Label block — always at bottom, rises on hover */
+.smile-gallery-label {
+  transform: translateY(12px);
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.45s ease;
+}
+.smile-gallery-card:hover .smile-gallery-label {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.smile-gallery-icon {
+  font-size: 26px;
+  display: block;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+
+.smile-gallery-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.smile-gallery-desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* "Before & After" pill — visible always, bottom-right */
+.smile-gallery-badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+/* Responsive: stack to 1 col on mobile */
+@media (max-width: 640px) {
+  .smile-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* --- Reviews --- */
 .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
@@ -418,6 +602,7 @@ a { text-decoration: none; color: inherit; }
   .tooth-img { max-width: 380px; }
   .badge-mid-left { left: -5%; }
   .badge-top-right { right: -2%; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
   .nav-links, .nav-actions { display: none; }
@@ -428,6 +613,7 @@ a { text-decoration: none; color: inherit; }
   .location-card-large { flex-direction: column; text-align: center; }
   .location-card-large .clinic-img { margin-top: 20px; }
   .address, .location-card p { justify-content: center; }
+  .services-grid { grid-template-columns: 1fr; }
   
   /* Mobile Menu Styles */
   .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: white; padding: 20px; box-shadow: var(--shadow-md); border-top: 1px solid var(--border-color); }

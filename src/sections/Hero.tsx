@@ -67,18 +67,6 @@ export default function Hero() {
         {/* RIGHT: Badges float over the Three.js tooth — no <img> needed */}
         <div className="hero-v2-visual animate-fade-in" style={{ animationDelay: '0.3s' }}>
           <div className="badge-overlay-area">
-            <div className="glass-badge badge-top-right">
-              <span className="badge-icon">✅</span>
-              <span>Painless RCT</span>
-            </div>
-            <div className="glass-badge badge-mid-left">
-              <span className="badge-icon">⭐</span>
-              <span>500+ Reviews</span>
-            </div>
-            <div className="glass-badge badge-bottom-right">
-              <span className="badge-icon">🏆</span>
-              <span>11+ Yrs Exp.</span>
-            </div>
           </div>
         </div>
 
