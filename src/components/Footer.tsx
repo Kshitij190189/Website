@@ -22,7 +22,6 @@ export default function Footer() {
             <h3>Dr Pradhan’s Dental Clinic</h3>
             <p><MapPin size={16} /> Shop No. 1, Goumukh Society, Fourth Circle, Opposite Lodha Elite Office, Lodha Heaven, Nilje, Palava</p>
             <p><Clock size={16} /> Mon - Sun: 10:00 AM – 1:30 PM & 6:00 PM – 9:30 PM</p>
-            <p className="fee">Consultation Fee: ₹100</p>
           </div>
         </div>
       </div>

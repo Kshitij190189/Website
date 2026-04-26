@@ -1,7 +1,7 @@
-import smileCorrection from '../assets/img_p1_3.png';
-import clearAligners from '../assets/img_p2_28.png';
-import teethWhitening from '../assets/img_p4_2.png';
-import restorativeCare from '../assets/img_p10_4.png';
+import smileCorrection from '../assets/smilecorrection.png';
+import clearAligners from '../assets/clearaligner.png';
+import teethWhitening from '../assets/teethwhiting.png';
+import restorativeCare from '../assets/resorativecare.png';
 
 const galleryItems = [
   {
