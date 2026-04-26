@@ -5,7 +5,6 @@ const faqData = [
   { question: "Where is Dentovilla located?", answer: "Dentovilla, our primary flagship clinic, is located at Shop No. 22, Regency Anantam, Dombivli East." },
   { question: "Is Dr. Pranav Pradhan available in Palava City also?", answer: "Yes, secondary consultations are available at Dr Pradhan’s Dental Clinic in Palava City, Dombivli." },
   { question: "What are the clinic timings?", answer: "We are open Monday to Sunday, 10:00 AM – 1:30 PM and 6:00 PM – 9:30 PM." },
-  { question: "What is the consultation fee?", answer: "The consultation fee is ₹100." },
   { question: "Do you treat children?", answer: "Absolutely! We specialize in pediatric dentistry and providing a comfortable, fear-free environment for kids." },
   { question: "Are clear aligners available?", answer: "Yes, we offer clear/invisible aligners and traditional braces for teeth straightening." }
 ];
